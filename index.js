@@ -1,5 +1,10 @@
 import { Command } from "commander/esm.mjs";
-import { listContacts, getContactById, addContact } from "./contacts.js";
+import {
+  listContacts,
+  getContactById,
+  addContact,
+  removeContact,
+} from "./contacts.js";
 const program = new Command();
 
 program
@@ -13,18 +18,13 @@ program.parse(process.argv);
 
 const argv = program.opts();
 
-console.log("Hello world !!!");
-
 function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      console.log("list");
       listContacts();
       break;
 
     case "get":
-      console.log("get");
-      console.log(typeof id);
       getContactById(id);
       break;
 
@@ -33,7 +33,7 @@ function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "remove":
-      // ... id
+      removeContact(id);
       break;
 
     default:

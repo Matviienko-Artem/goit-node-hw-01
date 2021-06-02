@@ -31,7 +31,6 @@ export async function removeContact(contactId) {
   const contacts = JSON.parse(file);
 
   const filter = contacts.filter((contact) => contact.id !== contactId);
-
   await fs.writeFile(contactsPath, JSON.stringify(filter));
 }
 

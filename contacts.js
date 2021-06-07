@@ -14,7 +14,7 @@ export async function listContacts() {
   const file = await fs.readFile(contactsPath, "utf-8");
   const contacts = JSON.parse(file);
 
-  console.table(contacts);
+  return contacts;
 }
 
 export async function getContactById(contactId) {
@@ -22,8 +22,7 @@ export async function getContactById(contactId) {
   const contacts = JSON.parse(file);
   const contact = contacts.find((user) => user.id === contactId);
 
-  console.log("Нашли контакт:", contact);
-  console.table([contact]);
+  return [contact];
 }
 
 export async function removeContact(contactId) {
@@ -39,7 +38,8 @@ export async function addContact(name, email, phone) {
   const file = await fs.readFile(contactsPath, "utf-8");
   const contacts = JSON.parse(file);
 
-  console.log("Дoбавили новый контакт:", newContact);
   contacts.push(newContact);
   await fs.writeFile(contactsPath, JSON.stringify(contacts));
+
+  return [newContact];
 }

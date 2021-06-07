@@ -5,6 +5,7 @@ import {
   addContact,
   removeContact,
 } from "./contacts.js";
+
 const program = new Command();
 
 program
@@ -18,22 +19,28 @@ program.parse(process.argv);
 
 const argv = program.opts();
 
-function invokeAction({ action, id, name, email, phone }) {
+async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      listContacts();
+      const list = await listContacts();
+      console.log("Выводим список контактов:");
+      console.table(list);
       break;
 
     case "get":
-      getContactById(id);
+      const get = await getContactById(id);
+      console.log("Нашли контакт:");
+      console.table(get);
       break;
 
     case "add":
-      addContact(name, email, phone);
+      const add = await addContact(name, email, phone);
+      console.log("Дoбавили новый контакт:");
+      console.table(add);
       break;
 
     case "remove":
-      removeContact(id);
+      await removeContact(id);
       break;
 
     default:
